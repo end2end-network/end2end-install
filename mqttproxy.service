@@ -1,0 +1,17 @@
+[Unit]
+Description=MQTT Proxy service
+After=docker.service network.target
+[Service]
+WorkingDirectory=/opt/mqttproxy/
+ExecStart=docker run --rm \
+                     -p 2022:22 \
+                     -v /opt/mqttproxy/keys/:/opt/keys/ \
+                     --env-file ./env \
+                     --cap-add=NET_ADMIN \
+                     niksaysit/mqttproxy
+TimeoutStartSec=0
+Restart=on-failure
+StartLimitIntervalSec=60
+StartLimitBurst=3
+[Install]
+WantedBy=multi-user.target
