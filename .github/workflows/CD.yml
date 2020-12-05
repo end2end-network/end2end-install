@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: ls -a via ssh
+    - name: Pull repo
       uses: garygrossgarten/github-action-ssh@release
       with:
         command: ./pull.sh 
         host: end2end.network
         username: github-webhook
-        privateKey: ${{ secrets.PRIVATE_KEY}}
+        privateKey: ${{secrets.PRIVATE_KEY}}
