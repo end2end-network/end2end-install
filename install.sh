@@ -98,7 +98,7 @@ fi
 
 printf "docker stop mqttproxy;
 $DOCKER pull niksaysit/mqttproxy;
-$DOCKER run --rm -t \\
+$DOCKER run --rm \\
 --name=mqttproxy \\
 -p 2022:22 \\
 -v $FOLDER/keys/:/opt/keys/ \\
