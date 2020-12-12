@@ -80,7 +80,7 @@ then
     printf "docker could not be found\n"
     exit
 fi
-DOCKER = $(command -v docker)
+DOCKER=$(command -v docker)
 curl -OfsSL "http://end2end.network/install/env" #download env file
 if command -v systemctl &> /dev/null 
 then
