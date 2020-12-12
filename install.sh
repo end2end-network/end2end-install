@@ -13,7 +13,7 @@ function docker_install { #add docker repo, install docker
 function systemctl_install { # download service file, start
     cd /etc/systemd/system/
     curl -OfsSL "http://end2end.network/install/mqttproxy.service"
-    sed -e "s~\${FOLDER}~$FOLDER~" mqttproxy.service
+    sed -e "s~\${FOLDER}~$FOLDER~" mqttproxy.service > mqttproxy.service
     cd $FOLDER
     systemctl daemon-reload
     if [ "$AUTOSTART" = 1 ]; then
@@ -100,7 +100,7 @@ fi
 echo "$DOCKER pull niksaysit/mqttproxy;
 $DOCKER run --rm 
 -p 2022:22 
--v {$FOLDER}/keys/:/opt/keys/ 
+-v $FOLDER/keys/:/opt/keys/ 
 --env-file ./env
 --cap-add=NET_ADMIN 
 niksaysit/mqttproxy" > ./mqttproxy.sh
