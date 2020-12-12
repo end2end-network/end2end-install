@@ -22,7 +22,7 @@ function systemctl_install { # download service file, start
         read -p "Add to autostart? [yN]" -n 1 -r
         if [[ $REPLY =~ ^[Yy]$ ]]; then
             systemctl enable mqttproxy
-	    printf "Service is in /etc/systemctl/system/mqttproxy.service\n"
+	    printf "\nService is in /etc/systemctl/system/mqttproxy.service\n"
         fi
     fi
     printf "Starting\n"
