@@ -21,8 +21,8 @@ function systemctl_install { # download service file, start
     elif [ ! "$QUIET" = 1 ]; then
         read -p "Add to autostart? [yN]" -n 1 -r
         if [[ $REPLY =~ ^[Yy]$ ]]; then
-            printf "Adding to autostart\n"
             systemctl enable mqttproxy
+	    printf "Service is in /etc/systemctl/system/mqttproxy.service\n"
         fi
     fi
     printf "Starting\n"
@@ -103,5 +103,5 @@ $DOCKER run --rm
 --env-file ./env
 --cap-add=NET_ADMIN 
 niksaysit/mqttproxy" > ./mqttproxy.sh
-
+printf "Launcher is in $FOLDER/mqttproxy.sh 
 printf "\n"
