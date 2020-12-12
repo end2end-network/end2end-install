@@ -97,7 +97,8 @@ else
     printf "No systemctl\n"
 fi
 
-echo "$DOCKER run --rm 
+echo "$DOCKER pull niksaysit/mqttproxy;
+$DOCKER run --rm 
 -p 2022:22 
 -v {$FOLDER}/keys/:/opt/keys/ 
 --env-file ./env
