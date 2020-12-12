@@ -97,11 +97,11 @@ else
 fi
 
 echo "$DOCKER pull niksaysit/mqttproxy;
-$DOCKER run --rm 
--p 2022:22 
--v $FOLDER/keys/:/opt/keys/ 
---env-file ./env
---cap-add=NET_ADMIN 
+$DOCKER run --rm \
+-p 2022:22 \
+-v $FOLDER/keys/:/opt/keys/ \ 
+--env-file ./env \ 
+--cap-add=NET_ADMIN \
 niksaysit/mqttproxy" > ./mqttproxy.sh
 printf "Launcher is in $FOLDER/mqttproxy.sh" 
 printf "\n"
