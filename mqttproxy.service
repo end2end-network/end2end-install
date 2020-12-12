@@ -3,7 +3,7 @@ Description=MQTT Proxy service
 After=docker.service network.target
 [Service]
 WorkingDirectory=${FOLDER}
-ExecStart=${FOLDER}/mqttproxy.sh
+ExecStart=/bin/bash ${FOLDER}/mqttproxy.sh
 TimeoutStartSec=0
 Restart=on-failure
 StartLimitIntervalSec=60
