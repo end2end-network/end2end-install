@@ -39,23 +39,47 @@ fi
 
 
 FOLDER=/opt/mqttproxy
-while getopts "f:hqisa" opt
-do
-    case $opt in
-        f) FOLDER="$(realpath $OPTARG)";;
-        h) printf "
+OPTS=$(getopt -o 'f:qhisa' -l 'interval::' --name "$0" -- "$@")
+if [ $? != 0 ] ; then echo "Failed to parse options...exiting."; exit 1 ; fi
+
+while true ; do
+  case "$1" in
+    -f)FOLDER="$2"
+       shift 2;;
+    -h)printf "
 -f -- install folder
 \n-h -- this message\
 \n-q -- quiet, doesn't install docker or systemctl service\
 \n-i -- install docker, don't ask\
 \n-s -- install systemctl service file\
-\n-a -- add systemctl service to autostart \n" 
-		  exit;;
-        q) QUIET=1;;
-        i) INSTALL=1;;
-        s) SYSTEMCTL=1;;
-        a) AUTOSTART=1;;
-    esac
+\n-a -- add systemctl service to autostart \n"
+       shift
+       exit;;
+    -q)QUIET=1
+       shift;;
+    -i)INSTALL=1
+       shift;;
+    -s)SYSTEMCTL=1
+       shift;;
+    -a)AUTOSTART=1
+       shift;;
+    --interval)
+       INTERVAL="$2"
+       shift;;
+    --ban_attempts)
+       BAN_ATTEMPTS="$2"
+       shift;;
+    --ban_time)
+       BAN_TIME="$2"
+       shift;;
+    --ban_find_interval)
+       BAN_FIND_INTERVAL="$2"
+       shift;;
+    --)shift
+       break;;
+    * )echo "Internal error!"
+       exit 1;;
+  esac
 done
 
 
@@ -80,7 +104,9 @@ then
     exit
 fi
 DOCKER=$(command -v docker)
-curl -OfsSL "http://end2end.network/install/env" #download env file
+
+printenv | grep "INTERVAL\|BAN_ATTEMPTS\|BAN_TIME\|BAN_INTERVAL" > ./env
+
 if command -v systemctl &> /dev/null 
 then
     if [ "$SYSTEMCTL" = 1 ]; then
@@ -102,6 +128,8 @@ $DOCKER run --rm \\
 --name=mqttproxy \\
 -p 2022:22 \\
 -v $FOLDER/keys/:/opt/keys/ \\
+-v $FOLDER/ag/work/:/opt/adguardhome/work/ \\
+-v $FOLDER/ag/conf/:/opt/adguardhome/conf/ \\
 --env-file ./env \\
 --cap-add=NET_ADMIN \\
 niksaysit/mqttproxy" > ./mqttproxy.sh
