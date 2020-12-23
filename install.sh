@@ -39,9 +39,14 @@ fi
 
 
 FOLDER=/opt/mqttproxy
+INTERVAL=30
+BAN_ATTEMPTS=5
+BAN_TIME=12h
+BAN_FIND_INTERVAL=10m
+
 OPTS=$(getopt -o 'f:qhisa' -l 'interval::' --name "$0" -- "$@")
 if [ $? != 0 ] ; then echo "Failed to parse options...exiting."; exit 1 ; fi
-
+eval set -- "$OPTS"
 while true ; do
   case "$1" in
     -f)FOLDER="$2"
