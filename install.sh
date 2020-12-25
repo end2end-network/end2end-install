@@ -110,7 +110,7 @@ then
 fi
 DOCKER=$(command -v docker)
 
-printenv | grep "INTERVAL\|BAN_ATTEMPTS\|BAN_TIME\|BAN_INTERVAL" > ./env
+( set -o posix ; set ) | grep "INTERVAL\|BAN_ATTEMPTS\|BAN_TIME\|BAN_INTERVAL" > ./env
 
 if command -v systemctl &> /dev/null 
 then
