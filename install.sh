@@ -52,12 +52,16 @@ while true ; do
     -f)FOLDER="$2"
        shift 2;;
     -h)printf "
--f -- install folder
+-f -- install folder\
 \n-h -- this message\
 \n-q -- quiet, doesn't install docker or systemctl service\
 \n-i -- install docker, don't ask\
 \n-s -- install systemctl service file\
-\n-a -- add systemctl service to autostart \n"
+\n-a -- add systemctl service to autostart\
+\n# These options set container environment\
+\n--ban_attempts      -- Failet ssh login attempts before ban\
+\n--ban_time          -- For how long to ban, fail2ban format\
+\n--ban_find_interval -- How colse one to another should be failed attempts, fail2ban format\n"
        shift
        exit;;
     -q)QUIET=1
